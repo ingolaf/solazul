@@ -1,0 +1,53 @@
+<div class="navigation">
+  <ul>
+    <li>CONFIGURACIONES</li>
+    <li class="active">EDICIÓN</li>
+  </ul>
+</div>
+
+<div class="container"> 
+
+  <div class="page_actions">
+    <%= link_to image_tag('home.png'), root_path %>
+    <%= link_to image_tag('back.png'), configs_path %>
+  </div>
+
+  <% if flash[:notice] %>
+    <p class="alert"><%= flash[:notice] %></p>
+  <% end %>
+
+  <% if @config.errors.any? %>
+    <div class="alert_warning">
+      <ul class="ul_alert_warning">
+      <% @config.errors.full_messages.each do |msg| %>
+        <li class="ul_alert_warning"><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+    <div class="list_contianer">
+      <%= form_for :config, :url => {:action => 'update',  :id => @config.id} do |f| %>
+        <input name="_method" type="hidden" value="patch" />
+        <label>
+          <span>Nombre de la configuración</span>
+          <%= f.text_field :configuration_name %>
+        </label>
+       
+        <label>
+          <span>Valor de la configuración</span>
+          <%= f.text_field :configuration_value %>
+        </label>
+
+        <label>
+          <span>Activo?</span>
+          <%= check_box_tag :active, 1, @config.active? ? true : false %>
+        </label>
+       
+        <label>
+          <span></span>
+          <%= f.button 'Guardar configuración' %>
+        </p>
+      <% end %>
+    </div>
+</div>

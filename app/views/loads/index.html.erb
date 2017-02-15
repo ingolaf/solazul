@@ -1,0 +1,59 @@
+
+
+<div class="navigation">
+  <ul>
+    <li>CARGAS</li>
+    <li class="active">LISTADO</li>
+  </ul>
+</div>
+
+<div class="container"> 
+
+  <div class="page_actions">
+    <%= link_to image_tag('add.png'), new_load_path %>
+    <%= link_to image_tag('home.png'), root_path %>
+  </div>
+  
+  <p class="alert"><%= flash[:notice] %></p>
+
+  <div class="list_contianer">
+    <table class="zebra">
+      <tr>
+        <th>Número de carga</th>
+        <th>Fecha programada para envío</th>
+        <th>Número de orden</th>
+        <th>Porcentaje completado</th>
+        <th>Status</th>
+        <th>Fecha de creación</th>
+        <th></th>
+      </tr>
+     
+    <% if (@loads.length > 0) %>
+      <% @loads.each do |load| 
+          @sent_date = load.sent_date.to_s.split(" ")
+        %>
+        <tr>
+          <td><%= load.number %></td>
+          <td><%= @sent_date[0] %></td>
+          <td><%= load.order_number %></td>
+          <td><%= number_with_precision(load.percentage_completed, :precision => 2, :delimiter => ',') + " %" %></td>
+          <td><%= load.status %></td>
+          <td><%= load.created_at %></td>
+          <td align="right">
+            <% if (load.status != 'Finalizada') %>
+              <%= link_to image_tag('new_order.png'), :controller => 'orders', :action => 'new' %>
+              <%= link_to image_tag('edit_mini.png'), :action => 'edit', :id => load.id %>
+            <% end %>
+            <%= link_to image_tag('view_orders.png'), :action => 'show', :id => load.id %>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+        <tr>
+          <td colspan="7" align="center">No existen cargas configuradas</td>
+        </tr>
+    <% end %>
+
+    </table>
+  </div>
+</div>

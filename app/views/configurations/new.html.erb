@@ -1,0 +1,23 @@
+<%= form_for :configuration, url: configurations_path do |f| %>
+  <p>
+    <%= f.label :configuration_name %><br>
+    <%= f.text_field :configuration_name %>
+  </p>
+ 
+  <p>
+    <%= f.label :configuration_value %><br>
+    <%= f.text_field :configuration_value %>
+  </p>
+
+  <p>
+    <%= f.label :active %><br>
+    <%= check_box_tag(:active) %>
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+
+<%= link_to 'Back', configurations_path %>

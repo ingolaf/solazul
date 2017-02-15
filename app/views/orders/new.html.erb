@@ -1,0 +1,58 @@
+<div class="navigation">
+  <ul>
+    <li>PEDIDOS</li>
+    <li class="active">NUEVO</li>
+  </ul>
+</div>
+
+<div class="container"> 
+
+  <div class="page_actions">
+    <%= link_to image_tag('home.png'), root_path %>
+    <%= link_to image_tag('back.png'), orders_path %>
+  </div>
+
+  <% if (flash[:notice]) %>
+    <p class="alert"><%= flash[:notice] %></p>
+  <% end %>
+
+  <% if @order.errors.any? %>
+    <div class="alert_warning">
+      <ul class="ul_alert_warning">
+      <% @order.errors.full_messages.each do |msg| %>
+        <li class="ul_alert_warning"><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="list_contianer">
+    <%= form_for :order, url: orders_path do |f| %>
+
+      <label>
+        <span>Carga a la que pertenece el pedido</span>
+        <%= f.collection_select :load_id, @loads, :id, :number %>
+      </label>
+
+      <label>
+        <span>Número de pedido</span>
+        <%= f.text_field :number %>
+      </label>
+     
+      <label>
+        <span>Nombre del cliente</span>
+        <%= f.text_field :customer_name %>
+      </p>
+
+
+      <label>
+        <span>Activo?</span>
+        <%= check_box_tag(:active, 1, true) %>
+      </label>
+     
+      <p>
+        <%= f.button 'Guardar pedido' %>
+      </p>
+    <% end %>
+  </div>
+</div>

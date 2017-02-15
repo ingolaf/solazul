@@ -1,0 +1,43 @@
+<div class="navigation">
+  <ul>
+    <li>CONFIGURACIONES</li>
+    <li class="active">LISTADO</li>
+  </ul>
+</div>
+
+<div class="container"> 
+
+  <div class="page_actions">
+    <%= link_to image_tag('add.png'), new_config_path %>
+    <%= link_to image_tag('home.png'), root_path %>
+  </div>
+
+  <p class="alert"><%= flash[:notice] %></p>
+
+  <div class="list_contianer">
+    <table class="zebra">
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+        <th>Active?</th>
+        <th></th>
+      </tr>
+     
+    <% if (@configs) %>
+      <% @configs.each do |config| %>
+        <tr>
+          <td><%= config.configuration_name %></td>
+          <td><%= config.configuration_value %></td>
+          <td align="center"><%= config.active ? image_tag('thumbs_up.png') : image_tag('thumbs_down.png') %></td>
+          <td align="right"><%= link_to image_tag('edit_mini.png'), :action => 'edit', :id => config.id %></td>
+        </tr>
+      <% end %>
+    <% else %>
+        <tr>
+          <td colspan="3">There are not configurations to show</td>
+        </tr>
+    <% end %>
+
+    </table>
+  </div>
+</div>

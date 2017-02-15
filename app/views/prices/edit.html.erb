@@ -1,0 +1,62 @@
+<div class="navigation">
+  <ul>
+    <li>TAMAÑO DE OSTIÓN</li>
+    <li class="active">EDICIÓN</li>
+  </ul>
+</div>
+
+<div class="container"> 
+
+  <div class="page_actions">
+    <%= link_to image_tag('home.png'), root_path %>
+    <%= link_to image_tag('back.png'), prices_path %>
+  </div>
+
+  <% if flash[:notice] %>
+    <p class="alert"><%= flash[:notice] %></p>
+  <% end %>
+
+  <% if @price.errors.any? %>
+    <div class="alert_warning">
+      <ul class="ul_alert_warning">
+      <% @price.errors.full_messages.each do |msg| %>
+        <li class="ul_alert_warning"><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="list_contianer">
+    <%= form_for :price, :url => {:action => 'update',  :id => @price.id} do |f| %>
+      <input name="_method" type="hidden" value="patch" />
+      <label>
+        <span>Tamaño del ostión</span>
+        <%= f.collection_select :box_id, @boxes, :id, :description, :prompt => "Selecciona el tamño de ostión" %>
+      </label>
+     
+      <label>
+        <span>Cantidad de docenas por caja chica</span>
+        <%= f.text_field :box_size_small %>
+      </label>
+
+      <label>
+        <span>Cantidad de docenas por caja grande</span>
+        <%= f.text_field :box_size_big %>
+      </label>
+
+      <label>
+        <span>Precio por docena</span>
+        <%= f.text_field :price_by_dozen %>
+      </label>
+
+      <label>
+        <span>Peso por docena</span>
+        <%= f.text_field :weight_by_dozen %>
+      </label>
+     
+      <p>
+        <%= f.button 'Guadar tamaño' %>
+      </p>
+    <% end %>
+  </div>
+</div>

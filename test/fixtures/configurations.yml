@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  configuration_name: 
+  configuration_value: 
+  active: 
+
+two:
+  configuration_name: 
+  configuration_value: 
+  active: 

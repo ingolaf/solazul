@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  box_id: 1
+  box_size: 1
+  price_by_dozen: MyString
+  weight_by_dozen: MyString
+
+two:
+  box_id: 1
+  box_size: 1
+  price_by_dozen: MyString
+  weight_by_dozen: MyString

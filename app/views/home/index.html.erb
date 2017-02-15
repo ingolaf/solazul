@@ -1,0 +1,58 @@
+<div class="navigation">
+	<ul>
+		<li class="active">MENÚ PRINCIPAL</li>
+	</ul>
+</div>
+
+<div class="container">
+	<div class="item_menu">
+		<div class="small_round_item">
+			<%= link_to image_tag("settings.png", border: 0, class: "img-responsive"), {action: nil, controller: 'configs'} %>
+			<h3>CONFIGURACIÓN</h3>
+		</div>
+	</div>
+
+	<div class="item_menu">
+		<div class="small_round_item">
+			<%= link_to image_tag("boxes.png", border: 0, class: "img-responsive"), {action: nil, controller: 'boxes'}, {class: 'dock-item'} %>
+			<h3>TALLAS</h3>
+		</div>
+	</div>
+
+	<div class="item_menu">
+		<div class="small_round_item">
+			<%= link_to image_tag("prices.png", border: 0, class: "img-responsive"), {action: nil, controller: 'prices'}, {class: 'dock-item'} %>
+			<h3>PRECIOS</h3>
+		</div>
+	</div>
+
+	<div class="item_menu">
+		<div class="small_round_item">
+			<%= link_to image_tag("rules.png", border: 0, class: "img-responsive"), {action: nil, controller: 'rules'}, {class: 'dock-item'} %>
+			<h3>REGLAS</h3>
+		</div>
+	</div>
+
+	<div class="item_menu">
+		<div class="small_round_item">
+			<%= link_to image_tag("inventory.png", border: 0, class: "img-responsive"), {action: nil, controller: 'inventories'}, {class: 'dock-item'} %>
+			<h3>INVENTARIO</h3>
+		</div>
+	</div>	
+
+	<div class="item_menu">
+		<div class="small_round_item">
+			<%= link_to image_tag("load.png", border: 0, class: "img-responsive"), {action: nil, controller: 'loads'}, {class: 'dock-item'} %>
+			<h3>CARGAS</h3>
+		</div>
+	</div>
+
+	<div class="item_menu">
+		<div class="small_round_item">
+			<%= link_to image_tag("orders.png", border: 0, class: "img-responsive"), {action: nil, controller: 'orders'}, {class: 'dock-item'} %>
+			<h3>PEDIDOS</h3>
+		</div>
+	</div>
+
+	<div class="clear"></div>
+</div>

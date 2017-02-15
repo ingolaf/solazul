@@ -1,0 +1,234 @@
+<div class="navigation">
+  <ul>
+    <li>PEDIDOS</li>
+    <li class="active">EDICIÓN</li>
+  </ul>
+</div>
+
+
+<div class="container"> 
+
+	<div class="page_actions">
+		<%= link_to image_tag('home.png'), root_path %>
+		<%= link_to image_tag('back.png'), orders_path %>
+	</div>
+
+	<% if (flash[:notice]) %>
+		<p class="alert"><%= flash[:notice] %></p>
+	<% end %>
+
+	<div class="wrap">
+		<div class="left_side">
+			<div class="order_data">
+				<div class="info">
+					<h1>Carga</h1>
+					<table class="small_table">
+						<tr>
+							<td class="label_small_table">Carga</td>
+							<td><%=h @load.number %></td>
+						</tr>
+						<tr>
+							<td class="label_small_table">Estatus</td>
+							<td><%=h @load.status %></td>
+						</tr>
+						<tr>
+							<td class="label_small_table">Porcentaje completado</td>
+							<td align="right"><%= number_with_precision(@load.percentage_completed, :precision => 2, :delimiter => ',') %> % </td>
+						</tr>
+
+						<tr>
+							<td class="label_small_table">Tarimas ocupadas en la carga</td>
+							<td align="right"><%= number_with_precision(@load_total_palets, :precision => 2, :delimiter => ',') %></td>
+						</tr>
+
+						<tr>
+							<td class="label_small_table">Total de cajas agregadas a la carga</td>
+							<td align="right"><%= number_with_precision(@load_total_boxes, :precision => 2, :delimiter => ',') %></td>
+						</tr>
+
+						<tr>
+							<td class="label_small_table">Total de docenas empacadas en la carga</td>
+							<td align="right"><%= number_with_precision(@load_total_dozens, :precision => 2, :delimiter => ',') %></td>
+						</tr>
+
+						<tr>
+							<td class="label_small_table">Peso total de la carga</td>
+							<td align="right"><%= number_with_precision(@load_total_weight, :precision => 2, :delimiter => ',') %></td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="info">
+					<h1>Pedido 
+						<span style="float: right;">
+							<%= select("order_to_show", "order_id", @load.orders.collect { |p| [ p.number, p.id ] }, { include_blank: false, :selected => @order.id}, :onchange => ('javascript:location.href = this.value') ) %>
+						</span>
+					</h1>
+
+					<table class="small_table">
+						<tr>
+							<td class="label_small_table">Numero de pedido</td>
+							<td><%=h @order.number %></td>
+						</tr>
+						<tr>
+							<td class="label_small_table">Cliente</td>
+							<td><%=h @order.customer_name %></td>
+						</tr>
+						<
+							<td class="label_small_table">Total de cajas</td>
+							<td align="right"><%=h @order_total_boxes %></td>
+						</tr>
+
+						<tr>
+							<td class="label_small_table">Total de docenas</td>
+							<td align="right"><%=h @order_total_dozens %></td>
+						</tr>
+
+						<tr>
+							<td class="label_small_table">Costo del pedido</td>
+							<td align="right"><%= number_to_currency(@order.total ? @order.total : 0, precision: 2) %> </td>
+						</tr>
+						<tr>
+							<td class="label_small_table">Peso total del pedido</td>
+							<td align="right"><%= number_with_precision(@order_total_weight, :precision => 2, :delimiter => ',') %></td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="info">
+					<h3>
+						<% if (@config_load) %>
+							Porcentaje minimo de carga para mantener el precio: <%= @config_load.configuration_value %><br />
+						<% end %>
+
+						<% if (@config_max_palet) %>
+							Número máximo de tarimas: <%= @config_max_palet.configuration_value %><br />
+						<% end %>
+
+						<% if (@config_boxes_palet) %>
+							Número de cajas por tarima: <%= @config_boxes_palet.configuration_value %>
+						<% end %>
+					</h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="rigth_side">
+			<div class="container">
+				<% if(!@order.finalized?) %>
+					<div class="list_container">
+						<%= form_for(:article, :url => url_for(:controller => "articles", :action => "create"), html: {class: ""} ) do |f| %>
+								<%= f.hidden_field :order_id, :value => @order.id %>
+
+								<label>
+									<span>Docenas</span>
+									<%= f.text_field :quantity %>
+								</label>
+							
+								<label>
+									<span>Talla del ostión</span>
+									<%= f.collection_select :box_id, @boxes, :id, :description %>
+								</label>
+
+								<label>
+						          <span>Tipo de empaque</span>
+						          <%= select_tag('package', options_from_collection_for_select(@packages, :first, :last, '1')) %>
+						        </label>
+							
+								<label>
+									<span>Precio por docena</span>
+									<%= f.text_field :unit_price %>
+								</label>
+
+								<% if (@load.percentage_completed >= @config_load.configuration_value.to_f) %>
+									<label>
+										<span>Descuento ofertado</span>
+										<%= f.text_field :discount %>
+									</label>
+								<% else %>
+									<%= f.hidden_field :discount, :value => 0 %>
+								<% end %>
+
+								<label>
+									<span>Descripción</span>
+									<%= f.text_field :description %>
+								</label>
+								<br /><br />
+								<%= f.button 'Agregar ostión' %>
+						<% end %>
+					</div>
+				
+					<div class="list_container">
+						<%= form_for(:order, :url => url_for(:controller => "loads", :action => "finalize"), method: :get, html: {class: ""} ) do |x| %>
+							<%= x.hidden_field :return_to, :value => :orders %>
+							<%= x.hidden_field :id, :value => @order ? @order.id : 0 %>
+							<br /><br />
+						  	<%= x.button "Finalizar carga" %>
+						<% end %>
+					</div> <!-- List container -->
+				<% end %>
+			</div> <!-- Container -->
+
+			<% if (@rules_to_apply.length > 0) %>
+				<div class="list_contianer">
+					<h3>DESCUENTOS DISPONILES</h3>
+					<table class="zebra">
+						<tr>
+							<th>Tamaño de ostión</th>
+							<th>Descuento</th>
+							<th>Porcentaje a alcanzar</th>
+						</tr>
+					<% @rules_to_apply.each do |rule| %>
+						<tr>
+					      <td><%= rule.box.description %></td>
+					      <td align="right"><%= rule.max_discount %> %</td>
+					      <td align="right"><%= rule.percentage_load %> %</td>
+					    </tr>
+					<% end %>
+					</table>
+				</div>
+			<% end %>
+		</div> <!-- Right Side  -->
+		<div class="clear"></div>
+	</div> <!-- Wrap -->
+
+<div class="list_contianer">
+	<table class="zebra">
+	  <tr>
+	    <th>Docenas</th>
+	    <th>Tamañon de ostión</th>
+	    <th>Total de cajas</th>
+	    <th>Tamaño de la caja</th>
+	    <th>Precio por docena</th>
+	    <th>Descuento</th>
+	    <th>Total</th>
+	    <th>Descripción</th>
+	    <th></th>
+	  </tr>
+	 
+	<% if (@articles.length > 0) %>
+	  <% @articles.each do |article| %>
+	    <tr>
+	      <td align="right"><%= (article.quantity/@divisor) %></td>
+	      <td><%= article.box.description %></td>
+	      <td align="right"><%= article.total_boxes %></td>
+	      <td align="right"><%= article.package.to_i == 1 ? "Caja Chica" : article.package.to_i == 2 ? "Caja grande" : "Sin especificar" %></td>
+	      <td align="right"><%= article.unit_price %></td>
+	      <td align="right"><%= article.discount %></td>
+	      <td align="right"><%= number_to_currency(article.total ? article.total : 0, precision: 2) %></td>
+	      <td><div style="overflow-x:auto;"><%= article.description %></div></td>
+	      <td align="right">
+	      	<% if (!@order.finalized?) %>
+	      		<%= link_to image_tag('delete_row.png'), article, method: :delete %>
+      		<% end %>				
+  		  </td>
+	    </tr>
+	  <% end %>
+	<% else %>
+	    <tr>
+	      <td colspan="9" align="center">No se han agregado cajas de ostiones al pedido</td>
+	    </tr>
+	<% end %>
+
+	</table>
+</div>

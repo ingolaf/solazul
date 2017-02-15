@@ -1,0 +1,49 @@
+<div class="navigation">
+  <ul>
+    <li>TALLAS DE OSTIÓN</li>
+    <li class="active">LISTADO</li>
+  </ul>
+</div>
+
+<div class="container"> 
+
+  <div class="page_actions">
+    <%= link_to image_tag('add.png'), new_price_path %>
+    <%= link_to image_tag('home.png'), root_path %>
+  </div>
+
+  <% if flash[:notice] %> 
+    <p class="alert"><%= flash[:notice] %></p>
+  <% end %>
+
+  <div class="list_contianer">
+    <table class="zebra">
+      <tr>
+        <th>Talla del ostión</th>
+        <th>Docenas en caja chica</th>
+        <th>Docenas en caja grande</th>
+        <th>Precio base por docena</th>
+        <th>Peso por docena</th>
+        <th></th>
+      </tr>
+     
+    <% if (@prices.length > 0) %>
+      <% @prices.each do |price| %>
+        <tr>
+          <td><%= price.box.description %></td>
+          <td align="right"><%= price.box_size_small %></td>
+          <td align="right"><%= price.box_size_big %></td>
+          <td align="right"><%= price.price_by_dozen %></td>
+          <td align="right"><%= price.weight_by_dozen %></td>
+          <td align="right"><%= link_to image_tag('edit_mini.png'), :action => 'edit', :id => price.id %></td>
+        </tr>
+      <% end %>
+    <% else %>
+        <tr>
+          <td colspan="6" align="center">No se han configurado precios</td>
+        </tr>
+    <% end %>
+
+    </table>
+  </div>
+</div>

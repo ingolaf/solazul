@@ -1,0 +1,374 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require bootstrap-datepicker
+ *= require_selflinear-gradient(0deg, rgba(153,218,255,1) 0%, rgba(60,149,204,1) 72%, rgba(45,138,196,1) 84%);
+ *= require_tree .
+ */
+
+html {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    background-color: white;
+    margin: 0;
+}
+
+*,*:before, *:after {
+  box-sizing: border-box;
+}
+
+.round_header {
+    height: 140px;
+    margin: 0 auto;
+    background: linear-gradient(0deg, rgba(255, 255 , 255,1) 0%, rgba(60,149,204,1) 43%, rgba(45,138,196,1) 84%);
+    text-align: center;
+    font-size: 25px;
+    width: 100%;
+    display:table;
+}
+
+.header_title {
+  color: white;
+	text-shadow: rgb(3, 3, 3) 5px 5px 5px;
+  margin: 20px;
+  padding: 0;
+  vertical-align:middle;
+}
+
+.clear {
+	clear: both;
+	padding: 0 15px;
+}
+
+
+.small_round_item {
+    border-radius: 15px;
+    border: 1px solid rgb(120, 120, 128);
+    height: 220px;
+    width: 220px;
+    margin: 15px;
+    text-align: center;
+    box-shadow: rgba(0,0,0,1.8) 0px 0px 10px;
+    transition: 0.5s ease-in-out;
+}
+
+.small_round_item a {
+  padding: 10px 29px;
+  display: block;
+}
+
+.small_round_item:hover {
+  box-shadow: rgba(0,0,0,1.8) 0px 0px 30px;
+  transform: scale(1.15);
+}
+
+.small_round_item h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+}
+
+.item_menu {
+	width: 15%;
+	float: left;
+	padding: 15px;
+}
+
+.footer {
+ 	  text-align: right;
+    height: 70px;
+    background: linear-gradient(0deg, rgba(153,218,255,1) 0%, rgba(60,149,204,1) 72%, rgba(45,138,196,1) 84%);
+    padding: 15px;
+    position: absolute;
+    width: 100%;
+    color:white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.navigation {
+	margin: 25px 0;
+}
+
+ul {
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
+    font-size: 11px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-weight: bold;
+    text-align: center;
+}
+
+ul li {
+	padding: 10px;
+	width: 130px;
+	float:left;
+}
+
+ul li.active {
+	background-color: #008CBA;
+	font-weight: bolder;
+	color: white;
+} 
+
+.zebra {
+	width: 100%;
+}
+
+.zebra th {
+	background-color: rgba(45,138,196,1);
+	font-weight: bolder;
+	color: white;
+	text-transform: uppercase;
+  padding: 10px 0;
+}
+
+.zebra tr:nth-child(even) {
+	background-color: white;
+}
+
+.zebra tr:nth-child(odd) {
+	background-color: #A9E2F3;
+}
+
+td, th {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.page_actions {
+    border-radius: 15px;
+    border: 1px solid #D3D3D3;
+    padding: 15px 25px; 
+    margin: 25px 0;
+    text-align: right;
+}
+
+.page_actions img {
+    border-radius: 15px;
+    box-shadow: rgba(0,0,0,1.8) 0px 0px 10px;
+    border: 1px solid white;
+    margin-right: 10px;
+    transition: 0.5s ease-in-out;
+}
+
+.page_actions img:hover {
+  box-shadow: rgba(0,0,0,1.8) 0px 0px 20px;
+  transform: scale(1.15);
+}
+
+.list_contianer {
+    padding: 25px 0; 
+    margin: 15px 0;
+}
+
+.container form {
+  margin: auto;
+  position: relative;
+  width: 55%;
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: bold;
+  color: #008CBA;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #ffffff;
+  border: inset 1px solid #333;
+  -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+input {
+  width: 350px;
+  display: block;
+  border: 1px solid #999;
+  height: 25px;
+  -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  color: #666;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+select {
+	width: 365px;
+	display: block;
+	border: 1px solid #999;
+  height: 40px;
+  -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  color: #666;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+textarea {
+  width: 375px;
+  height: 150px;
+  display: block;
+}
+
+button {
+  width: 165px;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  background: #008CBA;
+  color: #fff;
+  height: 40px;
+  border-radius: 15px;
+  border: 1p solid #999;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+input.button:hover {
+  background: #fff;
+  color: #09C;
+}
+
+.info {
+  background: white;
+  border-radius: 15px;
+  box-shadow: rgba(0,0,0,1.8) 10px 10px 10px;
+  border: 1px solid black;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.inventory_box {
+    border-radius: 15px;
+    border: 1px solid rgb(120, 120, 128);
+    padding: 10px; 
+    height: 190px;
+    width: 280px;
+    margin: 12px;
+    float: left;
+    position: relative;
+    box-shadow: rgba(0,0,0,1.8) 0px 0px 10px;
+}
+
+.inventory_box h1 {
+	background: url(oyster.png) left center no-repeat;
+	background-size: 32px 32px;
+	padding-left: 45px;
+}
+
+.inventory_box p {
+	position: absolute;
+    bottom: 0;
+    right: 20px;
+    font-size: 10px;
+    font-style: italic;
+    font-weight: bolder;
+}
+
+.inventory_box label {
+	text-align: center;
+	font-size: 16px;
+	display: block;
+    width: 100%;
+}
+
+.inventory_box span {
+	text-align: center;
+	font-size: 35px;
+	font-weight: bold;
+	display: block;
+    width: 100%;
+}
+
+.rigth_side {
+	float: right;
+	width: 50%;
+}
+
+.left_side {
+	float: left;
+	width: 50%;
+}
+
+.order_data {
+	padding: 10px;
+	margin: 25px;	
+}
+
+.alert {
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  width: 95%;
+  border-radius: 25px;
+  margin: 25px;
+}
+
+.alert_warning {
+  font-size: 15px;
+  font-weight: bold;
+  color: #A94442;
+  background-color: #F2DEDE;
+  border-color: #ebccd1;
+  width: 95%;
+  border-radius: 25px;
+  margin: 25px;
+  text-align: left;
+}
+
+.ul_alert_warning {
+  width: 100%;
+  color: #A94442;
+  background-color: #F2DEDE;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.small_table {
+  width: 100%;
+  font-size: 13px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+}
+
+.label_small_table {
+  font-weight: bold;
+  border-bottom: 1px solid #cbcbcb;
+}
+
+/***WORK ARROUND FOR THE DATEPICKER***/
+.datepicker.datepicker-dropdown {
+  position: absolute;
+  background: white;
+  margin-top: -2px;
+  margin-left: 3px;
+}

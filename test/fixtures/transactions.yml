@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  quantity: 
+  article_id: 
+  date: 2016-06-22 23:16:31
+  article_id: 
+  active: false
+
+two:
+  quantity: 
+  article_id: 
+  date: 2016-06-22 23:16:31
+  article_id: 
+  active: false

@@ -1,0 +1,54 @@
+<div class="navigation">
+  <ul>
+    <li>REGLAS</li>
+    <li class="active">NUEVO</li>
+  </ul>
+</div>
+
+<div class="container"> 
+
+  <div class="page_actions">
+    <%= link_to image_tag('home.png'), root_path %>
+    <%= link_to image_tag('back.png'), rules_path %>
+  </div>
+  
+  <p class="alert"><%= flash[:notice] %></p>
+
+  <% if @rule.errors.any? %>
+    <div class="alert_warning">
+      <ul class="ul_alert_warning">
+      <% @rule.errors.full_messages.each do |msg| %>
+        <li class="ul_alert_warning"><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="list_contianer">
+    <%= form_for :rule, :url => {:action => 'create'} do |f| %>
+      <label>
+        <span>Porcentaje a alcanzar con la regla</span>
+        <%= f.text_field :percentage_load %>
+      </label>
+
+      <label>
+        <span>Tamaño de ostión</span>
+        <%= f.collection_select :box_id, @boxes, :id, :description, :prompt => "Selecciona un tamaño de ostión" %>
+      </label>
+     
+      <label>
+        <span>Máximo descuento permitido</span>
+        <%= f.text_field :max_discount %>
+      </label>
+
+      <p>
+        <span>Activo?</span>
+        <%= check_box_tag(:active) %>
+      </p>
+     
+      <p>
+        <%= f.button 'Guadar regla' %>
+      </p>
+    <% end %>
+  </div>
+</div>

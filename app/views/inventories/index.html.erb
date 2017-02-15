@@ -1,0 +1,43 @@
+<div class="navigation">
+  <ul>
+    <li class="active">INVENTARIO</li>
+  </ul>
+</div>
+ 
+ <div class="container"> 
+
+  <div class="page_actions">
+    <%= link_to image_tag('add_inventory.png'), new_inventory_path %>
+    <%= link_to image_tag('home.png'), root_path %>
+  </div>
+
+
+    <% if (@inventories.length > 0) %>
+      <% @inventories.each do |inventory| %>
+
+      <% if (inventory != nil)  %>        
+        <div class="inventory_box">
+          <h1><%= inventory.box.description %></h1>
+          <hr />
+          <label>Docenas disponible:</label> 
+          
+          <span>
+            <%= inventory.quantity %>
+          </span>
+
+          <p>
+            Last update: <%=inventory.update_date %>
+          </p>
+        </div>
+      <% end %>  
+    <% end %>
+    <% else %>
+      <div>
+        <div class="inventory_box">
+          <h1>Sin inventario aun</h1>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="clear"></div>
+  </div>

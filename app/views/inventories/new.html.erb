@@ -1,0 +1,73 @@
+<div class="navigation">
+  <ul>
+    <li>INVENTARIO</li>
+    <li class="active">AFECTACIÓN DIRECTA</li>
+  </ul>
+</div>
+
+
+
+<div class="container"> 
+
+  <div class="page_actions">
+    <%= link_to image_tag('home.png'), root_path %>
+    <%= link_to image_tag('back.png'), inventories_path %>
+  </div>
+
+  <p class="alert"><%= flash[:notice] %></p>
+
+  <div class="list_contianer">
+
+    <%= form_for(:article, :url => url_for(:controller => "inventories", :action => "create"), html: {class: ""} ) do |f| %>
+        <%= f.hidden_field :order_id, :value => @order ? @order.id : 0 %>
+        <%= f.hidden_field :unit_price, :value => 0 %>
+        <label>
+          <span>Cantidad de ostiones</span>
+          <%= f.text_field :quantity %>
+        </label>
+        
+        <label>
+          <span>Talla</span>
+          <%= f.collection_select :box_id, @boxes, :id, :description %>
+        </label>
+      
+        <%= f.button 'Guardar ostión' %>
+      </p>
+    <% end %>
+    <% if (@articles != nil && @articles.length > 0 ) %>
+      <%= form_for(:order, :url => url_for(:controller => "orders", :action => "finalize", :id => @order ? @order.id : 0 ), method: :get, html: {class: ""} ) do |x| %>
+        <%= x.hidden_field :return_to, :value => :inventories  %>
+        <%= x.hidden_field :id, :value => @order ? @order.id : 0 %>
+        <p><br/></p>
+        <%= x.button "Finalizar" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="list_contianer">
+  <table class="zebra">
+    <tr>
+      <th>Talla de ostión</th>
+      <th>Ostiones</th>
+      <th></th>
+    </tr>
+   
+  <% if (@articles != nil && @articles.length > 0) %>
+    <% @articles.each do |article| %>
+      <tr>
+        <td><%= article.box.description %></td>
+        <td align="right"><%= article.quantity %></td>
+        <td align="right">
+          <%= link_to image_tag('delete_row.png'), article, method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  <% else %>
+      <tr>
+        <td colspan="3" align="center">Aun no se han agreado items para la afectación del inventario</td>
+      </tr>
+  <% end %>
+
+  </table>
+</div>

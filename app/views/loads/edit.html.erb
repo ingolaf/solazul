@@ -1,0 +1,86 @@
+
+
+<div class="navigation">
+  <ul>
+    <li>CARGAS</li>
+    <li class="active">EDICIÓN</li>
+  </ul>
+</div>
+
+<p class="alert"><%= flash[:notice] %></p>
+
+<% if @load.errors.any? %>
+  <div class="alert_warning">
+    <ul class="ul_alert_warning">
+    <% @load.errors.full_messages.each do |msg| %>
+      <li class="ul_alert_warning"><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="container"> 
+<script type="text/javascript">
+  $(function () {
+    var date = new Date();
+    var currentMonth = date.getMonth();
+    var currentDate = date.getDate();
+    var currentYear = date.getFullYear();
+
+    $('.datepicker-input-element').datepicker({
+        dateFormat: "yyyy-mm-dd"
+    });
+});
+</script>
+
+
+  <div class="page_actions">
+    <%= link_to image_tag('home.png'), root_path %>
+    <%= link_to image_tag('back.png'), loads_path %>
+  </div>
+
+  <% if flash[:notice] %>  
+    <p class="alert"><%= flash[:notice] %></p>
+  <% end %>
+
+  <% if @load.errors.any? %>
+    <div class="alert_warning">
+      <ul class="ul_alert_warning">
+      <% @load.errors.full_messages.each do |msg| %>
+        <li class="ul_alert_warning"><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="list_contianer">
+    <%= form_for :load, :url => {:action => 'update',  :id => @load.id} do |f| %>
+      <input name="_method" type="hidden" value="patch" />
+
+      <label>
+        <span>Número de carga</span>
+        <%= f.text_field :number %>
+      </label>
+
+      <label>
+        <span>Fecha de envío</span>
+        <%= f.text_field :sent_date, class: "datepicker-input-element" %>
+      </label>
+
+      <label>
+        <span>Número de orden</span>
+        <%= f.text_field :order_number %>
+      </label>
+
+      <label>
+        <span>Lugar de entrega</span>
+        <%= f.text_field :delivery_place %>
+      </label>
+
+      <p>
+        <%= f.button 'Guadar carga' %>
+      </p>
+    <% end %>
+  </div>
+
+</div>

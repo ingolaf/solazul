@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  percentage_load: 1.5
+  box_id: 
+  max_discount: 1.5
+  active: false
+
+two:
+  percentage_load: 1.5
+  box_id: 
+  max_discount: 1.5
+  active: false

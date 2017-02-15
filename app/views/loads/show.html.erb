@@ -1,0 +1,146 @@
+<div class="navigation">
+  <ul>
+    <li>CARGAS</li>
+    <li class="active">LISTADO</li>
+  </ul>
+</div>
+
+<div class="container"> 
+
+  <div class="page_actions">
+    <%= link_to image_tag('back.png'), loads_path %>
+    <%= link_to image_tag('home.png'), root_path %>
+  </div>
+  
+  <% if (flash[:notice])%> 
+    <p class="alert"><%= flash[:notice] %></p>
+  <%end%>
+
+  <div class="container">
+    <div class="info order_data">
+        <h1>Carga</h1>
+        <table class="small_table">
+          <tr>
+            <td class="label_small_table">Carga</td>
+            <td><%=h @load.number %></td>
+          </tr>
+          <tr>
+            <td class="label_small_table">Estatus</td>
+            <td><%=h @load.status %></td>
+          </tr>
+          <tr>
+            <td class="label_small_table">Porcentaje completado</td>
+            <td align="right"><%= number_with_precision(@load.percentage_completed, :precision => 2, :delimiter => ',') %> % </td>
+          </tr>
+
+          <tr>
+            <td class="label_small_table">Tarimas ocupadas en la carga</td>
+            <td align="right"><%= number_with_precision(@load_total_palets, :precision => 2, :delimiter => ',') %></td>
+          </tr>
+
+          <tr>
+            <td class="label_small_table">Total de cajas agregadas a la carga</td>
+            <td align="right"><%= number_with_precision(@load_total_boxes, :precision => 2, :delimiter => ',') %></td>
+          </tr>
+
+
+        </table>
+
+        <hr />
+
+        <h1>Parámetros de configuración</h1>
+        <h3>
+          <% if (@config_load) %>
+            Porcentaje minimo de carga para mantener el precio: <%= @config_load.configuration_value %><br />
+          <% end %>
+
+          <% if (@config_max_palet) %>
+            Número máximo de tarimas: <%= @config_max_palet.configuration_value %><br />
+          <% end %>
+
+          <% if (@config_boxes_palet) %>
+            Número de cajas por tarima: <%= @config_boxes_palet.configuration_value %>
+          <% end %>
+        </h3>
+      </div>
+  </div>
+
+  <% if (@load.orders.length > 0) %>
+      <h2 style="margin: 20px;">PEDIDOS DE LA CARGA</h2>
+      <% @load.orders.each do |order| %>
+      <div class="list_contianer">
+        <div class="wrap">
+          <div class="left_side">
+            <div class="list_contianer">
+              <div class="info" style="margin-right: 20px;">
+                <h3>DATOS DE LA ORDEN 
+                  <% if (@load.status != 'Finalizada') %>
+                    <span style="float: right;"><%= link_to image_tag("new_order.png", border: 0), {action: 'show', controller: 'orders', id: order.id} %></span>
+                  <% end %>
+                  </h3>
+                <table class="small_table">
+                    <tr>
+                      <td class="label_small_table">Numero de pedido</td>
+                      <td><%=h order.number %></td>
+                    </tr>
+                    <tr>
+                      <td class="label_small_table">Cliente</td>
+                      <td><%=h order.customer_name %></td>
+                    </tr>
+                    <tr>
+                      <td class="label_small_table">Total de cajas</td>
+                      <td align="right"><%=h order.total_dozens_boxes %></td>
+                    </tr>
+
+                    <tr>
+                      <td class="label_small_table">Costo del pedido</td>
+                      <td align="right"><%= number_to_currency(order.total ? order.total : 0, precision: 2) %> </td>
+                    </tr>
+                  </table>
+                </div>
+            </div>
+        </div>
+        <div class="rigth_side">
+          <div class="list_contianer" style="margin: 0 20px;">
+            <h3>ITEMS DE LA ORDEN 
+              <% if (@load.status != 'Finalizada') %>
+                <span style="float: right;"><%= link_to image_tag("new_order.png", border: 0), {action: 'show', controller: 'orders', id: order.id} %></span>
+              <% end %>
+              </h3>
+            <table class="zebra">
+              <tr>
+                <th>Docenas</th>
+                <th>Talla</th>
+                <th>Empaque</th>
+                <th>Total de cajas</th>
+                <th>Precio</th>
+                <th>Descuento</th>
+                <th>Total</th>
+                <th>Descripción</th>
+              </tr>
+              <% if order.articles.length > 0 %>
+                <% order.articles.each do |article| %>
+                <tr>
+                    <td align="right"><%= article.quantity %></td>
+                    <td><%= article.box.description %></td>
+                    <td><%= article.package.to_i == 1 ? "Caja chica" : article.package.to_i == 2 ? "Caja grande" : "No especificado" %></td>
+                    <td align="right"><%= article.total_boxes %></td>
+                    <td align="right"><%= article.unit_price %></td>
+                    <td align="right"><%= article.discount %></td>
+                    <td align="right"><%= number_to_currency(article.total ? article.total : 0, precision: 2) %></td>
+                    <td><div style="overflow-x:auto;"><%= article.description %></div></td>
+                </tr>
+                <% end %>
+                <%else%>
+                  <tr>
+                    <td colspan="7" align="center">El pedido aun no tiene items agregados</td>
+                  </tr>
+              <% end %>
+            </table>
+          </div> 
+        </div> <!-- Right Side  -->
+        <div class="clear"></div>
+      </div> <!-- Wrap -->
+      </div> <!-- list_contianer -->
+    <%end%>
+  <%end%>

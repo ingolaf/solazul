@@ -1,0 +1,47 @@
+<div class="navigation">
+  <ul>
+    <li>PEDIDOS</li>
+    <li class="active">LISTADO</li>
+  </ul>
+</div>
+
+<div class="container"> 
+
+  <div class="page_actions">
+    <%= link_to image_tag('add.png'), new_order_path %>
+    <%= link_to image_tag('home.png'), root_path %>
+  </div>
+ 
+  <div class="list_contianer">
+     <table class="zebra">
+      <tr>
+        <th>Carga</th>
+        <th>Número de orden</th>
+        <th>Nombre del cliente</th>
+        <th>Fecha de creación</th>
+        <th>Estatus</th>
+        <th>Activo?</th>
+        <th></th>
+      </tr>
+     
+    <% if (@orders.length > 0) %>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.load.number %></td>
+          <td><%= order.number %></td>
+          <td><%= order.customer_name %></td>
+          <td><%= order.date %></td>
+          <td><%= order.progress? ? 'En progreso' : order.finalized? ? 'Finalizada' : order.status %></td>
+          <td align="center"><%= order.active ? image_tag('thumbs_up.png') : image_tag('thumbs_down.png') %></td>
+          <td align="right"><%= link_to image_tag('view.png'), :action => 'show', :id => order.id %></td>
+        </tr>
+      <% end %>
+    <% else %>
+        <tr>
+          <td colspan="7" align="center">No se han registrado pedidos</td>
+        </tr>
+    <% end %>
+
+    </table>
+  </div>
+</div>
